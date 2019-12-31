@@ -1,0 +1,14 @@
+@import './font.css';
+@import './recepie.css';
+@import './btn.css';
+*, *::before, *::after{
+    font-family: Gothan;
+}
+
+html{
+    font-size: 25px;
+}
+body{
+    padding:0;
+    margin:0;
+}

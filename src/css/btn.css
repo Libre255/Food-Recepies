@@ -1,0 +1,25 @@
+.btn{
+    font-size: inherit;
+    background: none;
+    outline: none;
+    font-weight: bold;
+    border-radius: 5px;
+    padding:5px 20px;
+    cursor: pointer;
+}
+
+.btn-addRecepie{
+    color: white;
+    background-color: hsl(200, 100%, 50%);      
+}
+.btn-deletRecepie{
+    color: white;
+    background-color:red;
+}
+.btn-addRecepie:hover{
+    background-color: hsl(200, 100%, 30%);      
+
+}
+.btn-deletRecepie:hover{
+	background-color:rgb(53, 2, 2);
+}

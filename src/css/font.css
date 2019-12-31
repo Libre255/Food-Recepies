@@ -1,0 +1,6 @@
+@font-face{
+    font-family: Gothan;
+    src: url('../fonts/GothamRounded-Bold.woff') format('woff'), url('../fonts/GothamRounded-Book.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}

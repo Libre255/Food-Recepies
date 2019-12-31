@@ -1,0 +1,40 @@
+.RecepieList {
+  border-right: 3px solid black;
+  min-height: 100vh;
+  width: 50%;
+}
+
+.myRecepie {
+  border-top: 3px solid black;
+  margin: 20px;
+}
+
+.myPadding {
+  padding: 5px;
+}
+
+.addRecepie {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.ingrdients-space {
+  padding-right: 10px;
+}
+
+.ingredients {
+  white-space: pre-wrap;
+}
+
+.TitleRecepieBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.edit-delet {
+  margin-top: 30px;
+  margin-left: 150px;
+}
+/*# sourceMappingURL=recepie.css.map */
