@@ -1,11 +1,11 @@
 import React from 'react'
-import MyIngridient from './Ingridient'
+import Ingridient from './Ingridient'
 
 
-export default function IngridientList({Ingridients}) {
-    let IngridientElement = Ingridients.map(myIngri =>{
-        return <MyIngridient key={myIngri.id} {...myIngri}/>
-    })
+export default function IngridientList({AllIngridient}) {
+    let IngridientElement = AllIngridient.map(myIngri =>{
+        return (<Ingridient key={myIngri.id} {...myIngri}/>)
+        })
     return (
         <div>
             {IngridientElement}

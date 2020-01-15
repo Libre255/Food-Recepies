@@ -1,19 +1,29 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Recepie from './recepie'
+import {TestContext} from './App' 
 
-export default function RecipeList({recepies}) {
+
+
+export default function RecipeList({MyReceta}) {
+
+  let {HandleAddRecepie} = useContext(TestContext)
+
     return (
       <div className="RecepieList">
-       <div>
-           {recepies.map(recepie =>{
+        <div>
+           {MyReceta.map(recepie =>{
               return(
-                <Recepie key={recepie.id} {...recepie}/>
+                <Recepie 
+                  key={recepie.id} 
+                  {...recepie}
+                  
+                />
               )  
            })}
        </div>
         <div className="addRecepie">
-          <button className="btn btn-addRecepie">Add Recepie</button>
+          <button onClick={HandleAddRecepie} className="btn btn-addRecepie">Add Recepie</button>
         </div>
       </div>
-    )
+   )
 }

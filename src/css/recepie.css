@@ -1,3 +1,38 @@
+.EditRecepie {
+  width: 30%;
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+.EditRecepie .CanselEdit {
+  margin-left: 100%;
+}
+
+.EditRecepie input {
+  width: 100%;
+}
+
+.EditRecepie .CanselEdit {
+  width: 50px;
+  background-color: red;
+}
+
+.ingredientsEdit input {
+  width: 85%;
+}
+
+.ingredientsEdit button {
+  width: 50px;
+  background-color: red;
+}
+
+.ingredientsEdit .ingredients-List {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[3];
+      grid-template-columns: repeat(3, auto);
+}
+
 .RecepieList {
   border-right: 3px solid black;
   min-height: 100vh;

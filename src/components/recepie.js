@@ -1,8 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import IngridientList from './IngridientList'
+import {TestContext} from './App'
+
+
 
 export default function Recepie(props) {
-   let {name, cookTime, servings, instructions, Ingridients} = props
+    let {HandleDeletRecepie, HandleSelectRecepie} = useContext(TestContext)
+
+   let {name, cookTime, servings, instructions, Ingridients, id} = props
     return (
      <div className="myRecepie">
         <div className="TitleRecepieBox">
@@ -10,8 +15,8 @@ export default function Recepie(props) {
            <h1>{name}</h1>
         </div>
         <div className='edit-delet'>
-            <button className='btn btn-addRecepie'>Edit</button>
-            <button className='btn btn-deletRecepie'>Delet</button>
+            <button className='btn btn-addRecepie' onClick={()=>HandleSelectRecepie(id)}>Edit</button>
+            <button className='btn btn-deletRecepie' onClick={()=>{HandleDeletRecepie(id)}}>Delet</button>
         </div>
      </div>
         
@@ -30,8 +35,7 @@ export default function Recepie(props) {
         </div>
         <div className=" myPadding">
             <span>Ingredients:</span>
-           
-           <IngridientList className="ingredients ingrdients-space" Ingridients={Ingridients}/>
+           <IngridientList className="ingredients ingrdients-space" AllIngridient={Ingridients}/>
         </div>
      </div>
     )
