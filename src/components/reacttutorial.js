@@ -16,7 +16,7 @@ import React, { useState } from 'react' //When we want to use functions with hoo
 // npm start = activates a inbuild npm "live server" = http://localhost:3000/ in pc
 // npm run build = compiles your files to a smaller size so it runs faster (Do only this when you are finish with your product)
 // npm run eject = when you want to go to the "back-end" of react in other words react in pure vanilla javascript! and modifiy how react works! :D:D:D::D:D
-
+// npm install = to install the node_modules
 
 // ********************** React *********************
 // use shortcut rfc to create a react function component 
