@@ -6,21 +6,23 @@ import React, { useState } from 'react' //When we want to use functions with hoo
 /************************************Tips **************************** */
 // Only use normal names in lowercase when creating a react folder. (Without any special letters or spaces or anything just plain normal lowercase!)
 // package-lock.json (has all the configurations for your different moduels!)
-// package.json (Has the configurations for your react app and commants aviliable)
+// package.json (Has the configurations for your react app and commands aviliable)
 // JSX = Html used in Javascript file. But some stuff can be name different like class="" is className="" because class is reserved to class constructors
 // When importing a function dont use () in the end
+// When we are inserting javascript inside JSX we always use {}
 
 // **************** React Commands **************************
-// In order to patch react in your folder use the command: npx create-react-app .  (important to use the dot = only install in this folder)
-// npm start = activates a inbuild npm "live server"
+// In order to patch react in your new folder use the command: npx create-react-app .  (important to use the dot = only install in this folder)
+// npm start = activates a inbuild npm "live server" = http://localhost:3000/ in pc
 // npm run build = compiles your files to a smaller size so it runs faster (Do only this when you are finish with your product)
-// npm run eject = when you want to go to the "back-end" of react in other words pure react in pure vanilla javascript! and modifiy how react works! :D:D:D::D:D
+// npm run eject = when you want to go to the "back-end" of react in other words react in pure vanilla javascript! and modifiy how react works! :D:D:D::D:D
 
 
 // ********************** React *********************
 // use shortcut rfc to create a react function component 
-// select everyting insitead an object with 3dots {...NameOfObject} same with arrays just use []
+// select everything inside an object with 3dots {...NameOfObject} same with arrays just use []
 // select specific propertie by destructuring let {nameOfProperties} = Props
+// overwrite an object with another object with {...FirstObject, ...SecondObject} if second object has only "name" its going to overwrite name and keep the other properties
 
 //+++++++++++++++++Class Component React++++++++++++++++++++++++
 class mycompo extends component{
@@ -80,10 +82,11 @@ let MyPersona = {
     length:173,
     lastName:"Veliz"
 }
-
-export default function empleados(Props){ //Props are arguments inside a function that holds the value that you want to transfer through components. In order word and props = obejct that cotains the values you want to transfer to other components
- //Props always need to be destructure and there are 2 ways one we can see above and one in the second function
- //Props can be deconstructing with {nameOfThePropertie} and insert the propertie that you want to use 
+                                        //props
+export default function empleados({nameOfThePropertie}){ //Props are arguments inside a function that holds the value that you want to transfer through components. In order word and props = object that cotains the values you want to transfer to other components
+    //Props can be deconstructing with {nameOfThePropertie} and insert the propertie that you want to use 
+    //Props always need to be destructure and there are 2 ways one we can see above and one in the ListadeEmepleados function
+ 
     return(
         <ListadeEmpleados Personas={MyPersona} /> //Props are passed through Componenets
     )
@@ -91,17 +94,17 @@ export default function empleados(Props){ //Props are arguments inside a functio
 
 export default function ListadeEmpleados(Personas) { 
  let {name, age, lastName} = PersonasProps //Second Way to destructure a prop
- let [value, ConfigureTheValue] = useState(age) //useState = we manipulate the state of the value inserted inside (here)
+ let [value, ConfigureTheValue] = useState(age) //useState = we manipulate the state of the value inserted inside parentesis, in this example "age"
  //the value inside the () gets transfered in the first index and the second index are a function that is going to control that value
  //You can use multiple useStates!
  return (
         <div>
-            <h1>{name}</h1> in order to insert the prop we need to insert inside {nameOfProp}
+            <h1>{name}</h1> {/* When we are inserting javascript inside JSX we always use {insert inside here}*/}
             <h2>{lastName}</h2> 
-            <h3 onClick={()=>{ //when creating an event first creat a function that is going to be the event function
-                //then use the useState method() and inside that use another function that is going to controll the value of useState
+            <h3 onClick={()=>{ //when creating an event first creat a function that is going to be the Event function
+                //then use the useState method() and if we have various setState with the same value we insert a function that is going to take inacount the previous state value
                 ConfigureTheValue((previousValue)=>previousValue + age) //previousVale = currentValueUpdated = the first index of the useState
-            //we create a function that is going to take inacount of the previous stateValue(if we have many useStates)
+                //we create a function that is going to take inacount of the previous stateValue(if we have many useStates)
                AnotherState((TestState)=> TestState + name) //just like this we can insert a new useState
             }}>{age}</h3>
         </div>
@@ -116,26 +119,33 @@ let myNombre = {
     name:"Brian",
     LastName:"Veliz"
 }
+let myGlobalProps = { //if we want to pass through many things we insert it inside an object
+    HandleRecepie, // and set the value to the name of the object
+    ChangeRecepie,
+    Persona1,
+    Documents
+}
 
 function HookComponent (){
-    //we wrap our component with the createContext variable.Provider 
-    //And insert the value that we want to pass through the component (in this case the object myNombre)
+    //we wrap our component with the element ThemeContext.Provider a.k.a React.createContext() 
+    //And insert the value that we want to pass through the "global" props a.k.a Context
     return(
-        <ThemeContext.Provider value={myNombre}> 
+        <ThemeContext.Provider value={myGlobalProps}> 
             <myComponent/>
         </ThemeContext.Provider>
     )   
 }
 //Part 2 +++++++++++++++++++ Insert the Context inside our nested component ++++++++++++++
-//We import useContext wich allow us to use context in our component
+//We import useContext wich allow us to use context in our component a.k.a insert the global prop
 import React, {useContext} from 'react'
 
 //We also import the createContext() method that we stored in the variable ThemeContext
 import {ThemeContext} from './App'
 
-// Now we Combine both useContext(Method) and our createdContext variable and store it inside a new variable
-const myNombre = useContext(ThemeContext)  //myNombre = Object myNombre with the name and LastName properties
-export default function myComponent(){ //we are inside the myComponent function
+// Now we Combine both useContext() and the imported Context variable = ThemeContext
+export default function myComponent(){
+    const myNombre = useContext(ThemeContext) //if you have your items inside an object you can descontrure them
+    let {name, LastName} = myNombre
     return(
         <div>  {/*Now we can access the object like a normal object and insert it inside our JSX with {}*/}
             <h1>mi nombre es {myNombre.name} y mi apellido es {myNombre.LastName}</h1>
@@ -147,10 +157,11 @@ import React, {useState, useEffect} from 'react'
 
 export default function reacttutorial() {
     let [numero, setNumero] = useState(0)
-    
-    useEffect(()=>{ //useEfftect has 2 parameters one is for a functions and the other one is when that function is going to be activated
+
+    //useEfftect has 2 parameters one is to creat a function and the other one is to control when that function is going to be activated
+    useEffect(()=>{ 
         console.log("Print this Kappa Kappuchino Pepperonino!")
-    }, [numeroBtn]) //the second index(numero) means that every time the button numero is going to be clicked its going to print the console above
+    }, [numeroBtn]) //if for exampel numeroBtn is a button everytime that button is clicked we are going to run the function above
     //In other words you can insert inside the array which conditions its going to run the function above. If you insert empty array its going
     //to active the function only once (when the page refresh)
     return (
@@ -165,7 +176,7 @@ import React from 'react'
 
 export default function reacttutorial() {
     let [nameItem, setName] = useState(myNombre)
-    let myNombre = { // here we have the object we want to store and insert it inside a useState (add a state)
+    let myNombre = { // here we have the object that activated an state and that we want to store everytime we set/change the State 
         Name:"Brian",
         LastName:"Veliz"
     }

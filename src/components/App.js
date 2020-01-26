@@ -19,7 +19,7 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   //++++++++++ ^^^ useStates ^^^ +++++++++++++++++++++++++++
 
   //++++++++++Local Storage Set Up++++++++++++++++++
-  let myKey = "BrianHola"
+  const myKey = "BrianHola";
   useEffect(()=>{
     let recepieJSON = localStorage.getItem(myKey) //when we get an item we are creating an Array
     if(recepieJSON != null){ //if the array doesnt have an value(wich it does) then
@@ -61,13 +61,14 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   )
  }
  let HandleRecepieChange = (id, recepieArgu)=>{
-  const newRecepies = [...recepieArgu]  //React doesnt allow you to change the state without using setRecepie! thats why we are creating a new array with the properties of our recepie State
-  const index = newRecepies.findIndex(r=> r.id === id)
-  newRecepies[index] = recepieArgu //newRecepies[index] = We are going to select with Recepie (searching with the ID)
-                                   //recepieArgu = we are going to insert the "new" values of that recepie
+  const newRecepies = [...recepies]  //React doesnt allow you to change the state without using setRecepie! thats why we are creating a copy array with the same properties of our recepie State
+  const index = newRecepies.findIndex(r=> r.id === id)//newRecepies[index] = We are going to select with Recepie (searching with the ID) 
+  newRecepies[index] = recepieArgu  //recepieArgu = we are going to insert the "new"/edited values of that recepie 
+  // since the newRecepie is not attached to a state we can manipulate it as a normal Object and THEN edited insert it inside the state by using setState
+  setRecepie(newRecepies) //Now we are inserting the copy newRecepie plus the editet version! :DD:D:D:D                                
 }
 
-  //+++++++++++ vvv my Objects vvv +++++++++++
+  //+++++++++++ vvv my Objects/Context vvv +++++++++++
  let myContext = { //Here we are inserting inside the object myContext
     HandleAddRecepie, // all our functions, so we can pass through components easily with 1 single Element Context
     HandleDeletRecepie,
@@ -136,9 +137,14 @@ let sampleRecepie = [
     ]
   }
 ]
+let myO = {
+  name:"Ho",
+  age:10
+}
+let {name:FirstName} = myO
+console.log(FirstName)
 export default App;
 //rfc to creat componen function
-
 
 // let selectRepecie = recepie.find(recepie => recepie.id === selectedRecepiedId) //this is going to give you the hole recepie with the ID
 // function RecepieSelect(id){
