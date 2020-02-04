@@ -34,24 +34,28 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   //+++++++++++ ^^^Local Storage Set up ^^^ +++++++++++++++++++++
 
   //++++++++ vv My Functions vv ++++++++++++++++++++
+
+
+
  let HandleSelectRecepie = (id)=>{
   setSelectedRepecie(id)
  }
  let HandleAddRecepie = () => {
   let newRecepie = {  // we are creating a funciton that adds a new recepie 
     id:uuidv4(),
-    name:"new",
-    servings:1,
-    cookTime:"1:00",
-    instructions:"instructions",
+    name:"",
+    servings:0,
+    cookTime:"",
+    instructions:"",
     Ingridients:[
       {
         id:uuidv4(),
-        name:"name",
-        amount:"3 tbs"
+        name:"",
+        amount:""
       }
     ] 
   }
+  setSelectedRepecie(newRecepie.id)
   setRecepie([...recepies, newRecepie]) 
   //This above means that we are adding a new recepie in the end of the already existing recepies and creating a brand new array with both
  }
@@ -60,6 +64,9 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
     return rece.id !== id // if you use multiple lines inside a function use always return(Not needed if you just writing 1 line of function code )
   }) // we are filtering into a new array, all the recepies expect the one that we clicked ID)
   )
+  if(selectRecepieID !=null && selectRecepieID === id){
+    setSelectedRepecie(undefined)
+  }
  }
  let HandleRecepieChange = (id, recepieArgu)=>{
   const newRecepies = [...recepies]  //React doesnt allow you to change the state without using setRecepie! thats why we are creating a copy array with the same properties of our recepie State
@@ -74,7 +81,7 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
     HandleAddRecepie, // all our functions, so we can pass through components easily with 1 single Element Context
     HandleDeletRecepie,
     HandleSelectRecepie,
-    HandleRecepieChange
+    HandleRecepieChange,
   }
 
   //+++++++++++++++ vvv return( JXS/components) vvv +++++++++++++++
