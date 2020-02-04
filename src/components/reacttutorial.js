@@ -10,6 +10,7 @@ import React, { useState } from 'react' //When we want to use functions with hoo
 // JSX = Html used in Javascript file. But some stuff can be name different like class="" is className="" because class is reserved to class constructors
 // When importing a function dont use () in the end
 // When we are inserting javascript inside JSX we always use {}
+// Never change state by the first index or by the function (second index) instead creat a new object {...currentValue, ...NewValue} that you insert with the function state
 
 // **************** React Commands **************************
 // In order to patch react in your new folder use the command: npx create-react-app .  (important to use the dot = only install in this folder)
@@ -83,28 +84,31 @@ let MyPersona = {
     lastName:"Veliz"
 }
                                         //props
-export default function empleados({nameOfThePropertie}){ //Props are arguments inside a function that holds the value that you want to transfer through components. In order word and props = object that cotains the values you want to transfer to other components
+export default function empleados({nameOfThePropertie}){ //Props are arguments inside a function that holds the value that you want to transfer through components. In order words props = object that cotains the values you want to transfer to other components
     //Props can be deconstructing with {nameOfThePropertie} and insert the propertie that you want to use 
     //Props always need to be destructure and there are 2 ways one we can see above and one in the ListadeEmepleados function
  
     return(
-        <ListadeEmpleados Personas={MyPersona} /> //Props are passed through Componenets
+        <ListadeEmpleados Personas={MyPersona} /> //Props are passed through Components
+        //             NameTheProp={theNameOfTheActuallObject}
     )
 }
 
-export default function ListadeEmpleados(Personas) { 
- let {name, age, lastName} = PersonasProps //Second Way to destructure a prop
+export default function ListadeEmpleados(PersonasProps) { 
+ let {name, age, lastName} = PersonasProps //Second Way to destructure a prop !!!!!
+
  let [value, ConfigureTheValue] = useState(age) //useState = we manipulate the state of the value inserted inside parentesis, in this example "age"
  //the value inside the () gets transfered in the first index and the second index are a function that is going to control that value
- //You can use multiple useStates!
- return (
+ //You can use multiple useStates! But always remember to place on top of everything beside Props
+
+    return ( //we use the return method to insert JSX = HTML inside a javascript file(In this case a function)
         <div>
-            <h1>{name}</h1> {/* When we are inserting javascript inside JSX we always use {insert inside here}*/}
+            <h1>{name}</h1> {/* When we are inserting javascript inside JSX we always use brackets {insert inside here}*/}
             <h2>{lastName}</h2> 
-            <h3 onClick={()=>{ //when creating an event first creat a function that is going to be the Event function
-                //then use the useState method() and if we have various setState with the same value we insert a function that is going to take inacount the previous state value
+            <h3 onClick={()=>{ //when creating an event, we first NameTheEvent equal brackets then insert a function
+                //then use the function that useState Returns and if the element is inserted in various useState and constantly changing state with different useState then we have to take inacount the previous state value
                 ConfigureTheValue((previousValue)=>previousValue + age) //previousVale = currentValueUpdated = the first index of the useState
-                //we create a function that is going to take inacount of the previous stateValue(if we have many useStates)
+                //we create a function that is going to take inacount of the previous stateValue(if we have many useStates with the same element value)
                AnotherState((TestState)=> TestState + name) //just like this we can insert a new useState
             }}>{age}</h3>
         </div>
@@ -129,6 +133,7 @@ let myGlobalProps = { //if we want to pass through many things we insert it insi
 function HookComponent (){
     //we wrap our component with the element ThemeContext.Provider a.k.a React.createContext() 
     //And insert the value that we want to pass through the "global" props a.k.a Context
+    //just like you would normaly pass through an component 
     return(
         <ThemeContext.Provider value={myGlobalProps}> 
             <myComponent/>
@@ -153,7 +158,7 @@ export default function myComponent(){
     )
 }
 //+++++++++++++++++ useEffect +++++++++++++++++++++
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react' // first import useEffect from react
 
 export default function reacttutorial() {
     let [numero, setNumero] = useState(0)

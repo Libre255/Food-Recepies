@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function IngredientsEdit({ingredient, handleIngredientChange}) {
+export default function IngredientsEdit({ingredient, handleIngredientChange, deletIngridient}) {
   let ChangeMyIngridient = (changes)=>{
     handleIngredientChange(ingredient.id, {...ingredient, ...changes})// We are overwriting ingredients with the object  let Changes = {name:e.target.value}
     //destructuring {name:e.target.value} = Changes 
@@ -10,7 +10,7 @@ export default function IngredientsEdit({ingredient, handleIngredientChange}) {
     <>
       <input type="text" value={ingredient.name} onChange={e => ChangeMyIngridient({name:e.target.value})}/> 
       <input type="text" value={ingredient.amount} onChange={e => ChangeMyIngridient({amount:e.target.value})}/>
-      <button>X</button>
+      <button onClick={()=> deletIngridient(ingredient.id)}>X</button>
     </>
   )
 }

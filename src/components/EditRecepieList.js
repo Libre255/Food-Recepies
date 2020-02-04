@@ -1,10 +1,13 @@
 import React, {useContext} from 'react'
 import IngredientsEdit from './ingredientsEdit'
 import {TestContext} from './App'
+import uuidv4 from 'uuid/v4' 
 
 export default function EditRecepieList({recepieSelected}) {
   // console.log( recepieSelected)
-  let {HandleRecepieChange} = useContext(TestContext)
+  let {HandleRecepieChange, HandleSelectRecepie} = useContext(TestContext)
+
+  //*******************  My Functions
   let handleChange = (Change)=>{
     HandleRecepieChange(recepieSelected.id, {...recepieSelected, ...Change}) //Whe OVERWRITE recepieSelected with the Object Change!:D
     //recepieSelected = {name, servings, CooktTime, introductions, etc..}
@@ -22,9 +25,22 @@ export default function EditRecepieList({recepieSelected}) {
     handleChange({Ingridients: newIngredients})//Here we destructuring ingridients form the recepie = let {Ingridients: newIngredients} = recepieSelected
      //Now we are inserting the Totaly new recepie plus the editet version! :DD:D:D:D   
   }
+  function addIngridient(){
+    let newIngridient = {
+      id: uuidv4(),
+      name:"",
+      amount:undefined
+    }
+    handleChange({Ingridients:[...recepieSelected.Ingridients, newIngridient]})
+  }
+  function deletIngridient(id){
+    handleChange({Ingridients: recepieSelected.Ingridients.filter(i=> i.id !== id)})
+  }
+
+
   return (
     <div className="EditRecepie">
-      <button className="CanselEdit">X</button>
+      <button className="CanselEdit" onClick={()=>{HandleSelectRecepie(undefined)}}>X</button>
       <div>
       <label htmlFor="name">Name</label>
        <input name="name" type="text" value={recepieSelected.name}
@@ -58,14 +74,17 @@ export default function EditRecepieList({recepieSelected}) {
             <div>Amount</div>
             <div></div>
             {recepieSelected.Ingridients.map(ingredient=>{
-               return <IngredientsEdit key= {ingredient.id} ingredient={ingredient} handleIngredientChange={handleIngredientChange}/>
+               return <IngredientsEdit key= {ingredient.id} ingredient={ingredient}
+                handleIngredientChange={handleIngredientChange}
+                deletIngridient={deletIngridient}
+                />
             })}
             
         </div>
       </div>
       <br/>
       <br/>
-      <button className='btn btn-addRecepie'>Add Ingredients</button>
+      <button className='btn btn-addRecepie' onClick={()=>addIngridient()}>Add Ingredients</button>
     </div>
   )
 }
