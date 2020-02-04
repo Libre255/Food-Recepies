@@ -21,15 +21,16 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   //++++++++++Local Storage Set Up++++++++++++++++++
   const myKey = "BrianHola";
   useEffect(()=>{
-    let recepieJSON = localStorage.getItem(myKey) //when we get an item we are creating an Array
-    if(recepieJSON != null){ //if the array doesnt have an value(wich it does) then
-      setRecepie(JSON.parse(recepieJSON)) //we wrap the recepie inside the array created by the localStorage
+    let recepieJSON = localStorage.getItem(myKey) //we creat inside the localStorage an array with the name of the key
+    if(recepieJSON != null){ //if the local storage is not equal to null then 
+      setRecepie(JSON.parse(recepieJSON)) //add the localStorage array into the Recepies when
     }
-    console.log(recepieJSON)
-  }, [])
+    console.log(recepies)
+  }, []) //the Page loads for the first time
   useEffect(()=>{
       localStorage.setItem(myKey, JSON.stringify(recepies))
-  }, [recepies])
+      //Once the LocalStorage is created we insert/set the
+  }, [recepies]) //recepie selected
   //+++++++++++ ^^^Local Storage Set up ^^^ +++++++++++++++++++++
 
   //++++++++ vv My Functions vv ++++++++++++++++++++
