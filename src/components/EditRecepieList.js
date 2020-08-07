@@ -9,21 +9,14 @@ export default function EditRecepieList({recepieSelected}) {
 
   //*******************  My Functions
   let handleChange = (Change)=>{
-    HandleRecepieChange(recepieSelected.id, {...recepieSelected, ...Change}) //Whe OVERWRITE recepieSelected with the Object Change!:D
-    //recepieSelected = {name, servings, CooktTime, introductions, etc..}
-    //We are overwriting recepieSelected with the Change object: let Change = {name:e.target.value}
-    //wich equals : let edited_Object = {name:e.target.value, servings, CooktTime, introductions, etc..} 
+    HandleRecepieChange(recepieSelected.id, {...recepieSelected, ...Change}) 
   }
   let handleIngredientChange = (id, Ingredient ) => {
-    const newIngredients = [...recepieSelected.Ingridients]  //React doesnt allow you to change the state without using setRecepie! thats why we copy our array/object
-    //so we can edit that "new" array/object that is not attach to a useState so later we can insert the hole edited version to the original array/object by using setState
-    const index = newIngredients.findIndex(ing => ing.id === id) //If the ingridient ID match the Id of the item we click we are gonna get return that index
-    newIngredients[index] = Ingredient //newRecepies[index] = We are going to select with Recepie (searching with the ID)  //recepieArgu = we are going to insert the "new" value of that recepie
-    //newIngredient[0] = {...ingredient, ...change} 
-    // let {name:e.target.value} = change destructuring change and inserting a new value
-    //then we are getting inside the change obejct and change the propertie {name:e.target.value}
-    handleChange({Ingridients: newIngredients})//Here we destructuring ingridients form the recepie = let {Ingridients: newIngredients} = recepieSelected
-     //Now we are inserting the Totaly new recepie plus the editet version! :DD:D:D:D   
+    const newIngredients = [...recepieSelected.Ingridients]  
+    const index = newIngredients.findIndex(ing => ing.id === id) 
+    newIngredients[index] = Ingredient 
+    handleChange({Ingridients: newIngredients})
+
   }
   function addIngridient(){
     let newIngridient = {

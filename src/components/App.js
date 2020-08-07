@@ -5,18 +5,12 @@ import uuidv4 from 'uuid/v4' // this is to create a unique key = {}
 import EditRecepieList from './EditRecepieList'
 
 
-export let TestContext = React.createContext() //createContext first
-//Then import {useContext} then inside useContext use the variabel that has CreateContext = useContext(TestContext)
+export let TestContext = React.createContext() 
 
 function App() {
  let [selectRecepieID, setSelectedRepecie] = useState()
- let [recepies, setRecepie] = useState(sampleRecepie) //useState wraps its value inside an object! 
-//Remember setRecepie function can be use multiple times! :D
+ let [recepies, setRecepie] = useState(sampleRecepie) 
 let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
-//we want to find if the recepie.id is equal to the selectedRecepieiD
-//if it finds it we will get the hole recepie!
-//React doesnt allow you to change the state without using setRecepie!!! 
-  //++++++++++ ^^^ useStates ^^^ +++++++++++++++++++++++++++
 
   //++++++++++Local Storage Set Up++++++++++++++++++
   const myKey = "BrianHola";
@@ -34,9 +28,6 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   //+++++++++++ ^^^Local Storage Set up ^^^ +++++++++++++++++++++
 
   //++++++++ vv My Functions vv ++++++++++++++++++++
-
-
-
  let HandleSelectRecepie = (id)=>{
   setSelectedRepecie(id)
  }
@@ -57,23 +48,22 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   }
   setSelectedRepecie(newRecepie.id)
   setRecepie([...recepies, newRecepie]) 
-  //This above means that we are adding a new recepie in the end of the already existing recepies and creating a brand new array with both
+  
  }
  let HandleDeletRecepie = (id)=>{
   setRecepie(recepies.filter(rece =>{
-    return rece.id !== id // if you use multiple lines inside a function use always return(Not needed if you just writing 1 line of function code )
-  }) // we are filtering into a new array, all the recepies expect the one that we clicked ID)
+    return rece.id !== id 
+  }) 
   )
   if(selectRecepieID !=null && selectRecepieID === id){
     setSelectedRepecie(undefined)
   }
  }
  let HandleRecepieChange = (id, recepieArgu)=>{
-  const newRecepies = [...recepies]  //React doesnt allow you to change the state without using setRecepie! thats why we are creating a copy array with the same properties of our recepie State
-  const index = newRecepies.findIndex(r=> r.id === id)//newRecepies[index] = We are going to select with Recepie (searching with the ID) 
-  newRecepies[index] = recepieArgu  //recepieArgu = we are going to insert the "new"/edited values of that recepie 
-  // since the newRecepie is not attached to a state we can manipulate it as a normal Object and THEN edited insert it inside the state by using setState
-  setRecepie(newRecepies) //Now we are inserting the copy newRecepie plus the editet version! :DD:D:D:D                                
+  const newRecepies = [...recepies]  
+  const index = newRecepies.findIndex(r=> r.id === id)
+  newRecepies[index] = recepieArgu  
+  setRecepie(newRecepies)                          
 }
 
   //+++++++++++ vvv my Objects/Context vvv +++++++++++
@@ -85,14 +75,12 @@ let selectRecepie = recepies.find((recepie)=> recepie.id === selectRecepieID)
   }
 
   //+++++++++++++++ vvv return( JXS/components) vvv +++++++++++++++
-  //Inside the TestContext we are inserting the value of myContext wich are the 2 functions that delet and add a recepie
-  //After that we are destructuring the TestContext and accessing the value (the 2 functions)
+  
   return (
     <div className="PositionElements">
      <TestContext.Provider value={myContext}> 
         <RecipeList MyReceta={recepies} />
-        {selectRecepie && <EditRecepieList recepieSelected={selectRecepie}/>} {/*&& = both MUST to be true in order to have a true result
-                                                                                || = one MUST to be true in order to have true result */}
+        {selectRecepie && <EditRecepieList recepieSelected={selectRecepie}/>}
     </TestContext.Provider>
     </div>
     
@@ -152,13 +140,3 @@ let myO = {
 let {name:FirstName} = myO
 console.log(FirstName)
 export default App;
-//rfc to creat componen function
-
-// let selectRepecie = recepie.find(recepie => recepie.id === selectedRecepiedId) //this is going to give you the hole recepie with the ID
-// function RecepieSelect(id){
-//   setSelectedRecepie(id)
-// }
-
-// let {id} = props
-
-// onClick={() => RecepieSelect(id)} //this is going just to give you the id
